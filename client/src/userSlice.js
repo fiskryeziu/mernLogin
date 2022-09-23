@@ -33,6 +33,10 @@ export const userRegisterAction = createAsyncThunk(
   async (userData, { rejectWithValue }) => {
     try {
       const { data } = await api.post('auth/register', userData)
+
+      if (data) {
+        localStorage.setItem('userInfo', JSON.stringify(data))
+      }
       return data
     } catch (err) {
       const message =
@@ -44,7 +48,7 @@ export const userRegisterAction = createAsyncThunk(
   }
 )
 
-const userLoginSlice = createSlice({
+const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
@@ -66,9 +70,20 @@ const userLoginSlice = createSlice({
         state.loading = false
         state.error = action.payload.message
       })
+      .addCase(userRegisterAction.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(userRegisterAction.fulfilled, (state, action) => {
+        state.loading = false
+        state.userInfo = action.payload
+      })
+      .addCase(userRegisterAction.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload.message
+      })
   },
 })
 
-export const { userLogOut } = userLoginSlice.actions
+export const { userLogOut } = userSlice.actions
 
-export default userLoginSlice.reducer
+export default userSlice.reducer

@@ -17,7 +17,6 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.methods.validatePassword = async function validatePassword(data) {
-  console.log(bcrypt.compare(data, this.password))
   return await bcrypt.compare(data, this.password)
 }
 

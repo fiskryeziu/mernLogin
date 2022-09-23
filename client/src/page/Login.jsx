@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { userLoginAction } from '../userLoginSlice'
+import { userLoginAction } from '../userSlice'
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -37,7 +37,7 @@ const Login = () => {
 
   return (
     <>
-      {error && <p className="error">Invalid password</p>}
+      {error && <p className="error">{error}</p>}
       <form onSubmit={submitHandler}>
         <h1>Login</h1>
         <input
@@ -52,6 +52,9 @@ const Login = () => {
           placeholder="Password"
           onChange={onChange}
         />
+        <Link to="/register" className="aLink">
+          Create Account
+        </Link>
         <div>
           <button>login</button>
         </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
-import { userLogOut } from '../userLoginSlice'
+import { userLogOut } from '../userSlice'
 
 const NavBar = () => {
   const navigate = useNavigate()
